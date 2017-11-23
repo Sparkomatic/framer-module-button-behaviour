@@ -2,6 +2,7 @@
 # rename function to make buttons radio button or equivalent
 # is it worth doing in a constructor - probably not becasue it's just adding behasviour to layer object already created
 
+
 exports.createRadioButtonBehaviour = (arrayOfButtons) ->
 	for button in arrayOfButtons
 		button.isOn = false
