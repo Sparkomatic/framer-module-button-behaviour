@@ -2,6 +2,7 @@
 # rename function to make buttons radio button or equivalent
 # is it worth doing in a constructor - probably not becasue it's just adding behasviour to layer object already created
 
+#refcator code reuse DRY
 
 exports.createRadioButtonBehaviour = (arrayOfButtons) ->
 	for button in arrayOfButtons
@@ -30,3 +31,30 @@ exports.createRadioButtonBehaviour = (arrayOfButtons) ->
 					button.showOn()
 				else
 					button.showOff()
+
+exports.createCheckButtonBehaviour = (arrayOfButtons) ->
+	for button in arrayOfButtons
+		button.isOn = false
+
+		button.turnOn = -> @isOn = true
+		button.turnOff = -> @isOn = false
+
+		button.showOn = -> @backgroundColor = 'black'
+		button.showOff = -> @backgroundColor = 'grey'
+
+		button.flipSwitch = (button) ->
+			if button.isOn is false then button.turnOn()
+			else if button.isOn is true then button.turnOff()
+
+		button.onClick (event, button) ->
+			@flipSwitch(button)
+			updateLayer(button)
+
+		updateLayer = (button) ->
+			if button.isOn
+				button.showOn()
+			else
+				button.showOff()
+
+	button.showOff()
+
