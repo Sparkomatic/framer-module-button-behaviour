@@ -2,11 +2,14 @@
 # rename function to make buttons radio button or equivalent
 # is it worth doing in a constructor - probably not becasue it's just adding behasviour to layer object already created
 
-exports.createRadioButtonBehaviour = (arrayOfButtons) ->
+#refactor code reuse DRY
+
+
+exports.createRadioButtonBehaviour = (arrayOfButtons, selectedStyle, unselectedStyle) ->
 	for button in arrayOfButtons
 
 		createButtonActions(button)
-		createButtonAppearance(button)
+		createButtonAppearance(button, selectedStyle, unselectedStyle)
 
 		button.flipSwitch = ->
 			if @isOn is false then @turnOn()
@@ -26,10 +29,11 @@ exports.createRadioButtonBehaviour = (arrayOfButtons) ->
 				else
 					button.showOff()
 
-exports.createCheckButtonBehaviour = (arrayOfButtons) ->
+exports.createCheckButtonBehaviour = (arrayOfButtons, selectedStyle, unselectedStyle) ->
 	for button in arrayOfButtons
 		createButtonActions(button)
-		createButtonAppearance(button)
+		createButtonAppearance(button, selectedStyle, unselectedStyle)
+
 
 		button.flipSwitch = (button) ->
 			if button.isOn is false then button.turnOn()
@@ -51,7 +55,7 @@ createButtonActions = (button) ->
 	button.turnOff = -> @isOn = false
 	return button
 
-createButtonAppearance = (button) ->
-		button.showOn = -> @backgroundColor = 'black'
-		button.showOff = -> @backgroundColor = 'grey'
+createButtonAppearance = (button, selectedStyle, unselectedStyle) ->
+		button.showOn = -> @style = selectedStyle
+		button.showOff = -> @style = unselectedStyle
 		return button
